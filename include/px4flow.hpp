@@ -51,7 +51,9 @@ private:
 	uint32_t search_size;
 	uint32_t flow_feature_threshold;
 	uint32_t flow_value_threshold;
-
+	int tile_size;
+	int num_blocks;
+	
 	uint32_t __USAD8(uint32_t val1, uint32_t val2);
 	uint32_t __USADA8(uint32_t val1, uint32_t val2, uint32_t val3);
 	uint32_t __UHADD8(uint32_t val1, uint32_t val2);
@@ -63,9 +65,8 @@ private:
 
 
 public:
-
-	PX4Flow(uint32_t image_width_, uint32_t search_size_,
-		uint32_t flow_feature_threshold_, uint32_t flow_value_threshold_);
+	PX4Flow(uint32_t image_width_, uint32_t search_size_, uint32_t flow_feature_threshold_, 
+					uint32_t flow_value_threshold_, int tile_size_, int num_blocks_);
 	uint8_t compute_flow(uint8_t *image1, uint8_t *image2, float x_rate, float y_rate,
 			     float z_rate, float *pixel_flow_x, float *pixel_flow_y);
 

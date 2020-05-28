@@ -40,20 +40,18 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-
+#include <iostream>
 #include "px4flow.hpp"
 
-
-#define TILE_SIZE	8										// x & y tile size
-#define NUM_BLOCKS	5 // x & y number of tiles to check
-
-
 PX4Flow::PX4Flow(uint32_t image_width_, uint32_t search_size_,
-		 uint32_t flow_feature_threshold_, uint32_t flow_value_threshold_) :
+		 uint32_t flow_feature_threshold_, uint32_t flow_value_threshold_,
+		 int tile_size_, int num_blocks_) :
 	image_width(image_width_),
 	search_size(search_size_),
 	flow_feature_threshold(flow_feature_threshold_),
-	flow_value_threshold(flow_value_threshold_)
+	flow_value_threshold(flow_value_threshold_),
+	tile_size(tile_size_),
+	num_blocks(num_blocks_)
 {
 
 }
@@ -357,15 +355,16 @@ uint8_t PX4Flow::compute_flow(uint8_t *image1, uint8_t *image2, float x_rate, fl
 
 	/* variables */
 	uint16_t pixLo = search_size + 1;
-	uint16_t pixHi = image_width - (search_size + 1) - TILE_SIZE;
-	uint16_t pixStep = (pixHi - pixLo) / NUM_BLOCKS + 1;
+	uint16_t pixHi = image_width - (search_size + 1) - tile_size;
+	uint16_t pixStep = (pixHi - pixLo) / num_blocks + 1;
 	uint16_t i, j;
 	uint32_t acc[8]; // subpixels
 	uint16_t histx[hist_size]; // counter for x shift
 	uint16_t histy[hist_size]; // counter for y shift
-	int8_t  dirsx[64]; // shift directions in x
-	int8_t  dirsy[64]; // shift directions in y
-	uint8_t  subdirs[64]; // shift directions of best subpixels
+	// Shouldn't these sizes be same as image size?
+	int8_t  dirsx[image_width]; // shift directions in x
+	int8_t  dirsy[image_width]; // shift directions in y
+	uint8_t  subdirs[image_width]; // shift directions of best subpixels
 	float meanflowx = 0.0f;
 	float meanflowy = 0.0f;
 	uint16_t meancount = 0;
@@ -521,7 +520,6 @@ uint8_t PX4Flow::compute_flow(uint8_t *image1, uint8_t *image2, float x_rate, fl
 	}
 
 	/* calc quality */
-	uint8_t qual = (uint8_t)(meancount * 255 / (NUM_BLOCKS * NUM_BLOCKS));
-
+	uint8_t qual = (uint8_t)(meancount * 255 / (num_blocks * num_blocks));
 	return qual;
 }
