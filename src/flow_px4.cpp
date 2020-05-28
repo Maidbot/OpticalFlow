@@ -45,7 +45,7 @@
 #include <iostream>
 
 OpticalFlowPX4::OpticalFlowPX4(float f_length_x, float f_length_y, int ouput_rate, int img_width, int img_height,
-			       int search_size, int flow_feature_threshold, int flow_value_threshold)
+			       int search_size, int flow_feature_threshold, int flow_value_threshold, int tile_size, int num_blocks)
 {
 	setImageWidth(img_width);
 	setImageHeight(img_height);
@@ -56,7 +56,8 @@ OpticalFlowPX4::OpticalFlowPX4(float f_length_x, float f_length_y, int ouput_rat
 	initLimitRate();
 
 	//init the PX4Flow instance
-	px4_flow = new PX4Flow(img_width, search_size, flow_feature_threshold, flow_value_threshold);
+	px4_flow = new PX4Flow(img_width, search_size, flow_feature_threshold, flow_value_threshold, 
+												 tile_size, num_blocks);
 	initialized = false;
 	img_old = new uint8_t[image_width * image_height];
 }
