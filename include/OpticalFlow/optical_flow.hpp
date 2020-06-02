@@ -43,7 +43,7 @@
 #include <stdint.h>
 #include <iostream>
 #include <cmath>
-#include "constants.hpp"
+#include "OpticalFlow/constants.hpp"
 
 class OpticalFlow
 {

@@ -1,6 +1,0 @@
-[submodule "external/klt_feature_tracker"]
-	path = external/klt_feature_tracker
-	url = https://github.com/Maidbot/klt_feature_tracker.git
-	branch = master
-	shallow = true
-

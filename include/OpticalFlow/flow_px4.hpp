@@ -40,10 +40,10 @@
 
 #pragma once
 
-#include "optical_flow.hpp"
-#include "px4flow.hpp"
+#include "OpticalFlow/optical_flow.hpp"
+#include "OpticalFlow/px4flow.hpp"
 #include <memory.h>
-#include "constants.hpp"
+#include "OpticalFlow/constants.hpp"
 
 class OpticalFlowPX4 : public OpticalFlow
 {
