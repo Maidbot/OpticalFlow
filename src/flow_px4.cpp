@@ -41,7 +41,7 @@
 * PX4Flow flow calculation
 ****************************************************************************/
 
-#include "flow_px4.hpp"
+#include "OpticalFlow/flow_px4.hpp"
 #include <iostream>
 
 OpticalFlowPX4::OpticalFlowPX4(float f_length_x, float f_length_y, int ouput_rate, int img_width, int img_height,

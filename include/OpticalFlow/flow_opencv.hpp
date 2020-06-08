@@ -44,8 +44,8 @@
 #include <opencv2/opencv.hpp>
 #include <cmath>
 
-#include "optical_flow.hpp"
-#include "trackFeatures.h"
+#include "OpticalFlow/optical_flow.hpp"
+#include "klt_feature_tracker/trackFeatures.h"
 
 #define DEFAULT_NUMBER_OF_FEATURES 20
 #define DEFAULT_CONFIDENCE_MULTIPLIER 1.645f //90% confidence interval

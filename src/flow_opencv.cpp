@@ -38,7 +38,7 @@
 *      Author: Christoph
 */
 
-#include "flow_opencv.hpp"
+#include "OpticalFlow/flow_opencv.hpp"
 
 /****************************************************************************
  * OpenCV optical flow calculation

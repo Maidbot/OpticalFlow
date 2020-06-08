@@ -40,6 +40,20 @@ if( POLICY CMP0042 )
   cmake_policy(SET CMP0042 NEW)
 endif()
 project( OpticalFlow )
+
+find_package(catkin REQUIRED COMPONENTS
+  klt_feature_tracker)
+
+catkin_package(
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS klt_feature_tracker
+)
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
 set(version_major 0)
 set(version_minor 1)
 set(version_patch 0)
@@ -55,15 +69,11 @@ set(${PROJECT_NAME}_INCLUDE_DIRS
 find_package( OpenCV REQUIRED )
 OPTION(OPENCV "ON for OpenCV" ON) # -DOPENCV=OFF
 
-add_subdirectory( external/klt_feature_tracker klt_feature_tracker )
-set( klt_feature_tracker_LIBS "klt_feature_tracker" )
-
 if(OpenCV_FOUND AND OPENCV)
     message(STATUS "Building ${PROJECT_NAME} with OpenCV")
 
     set(OpticalFlow_INCLUDE_DIRS
-      ${CMAKE_CURRENT_SOURCE_DIR}/include
-      ${klt_feature_tracker_INCLUDE_DIRS}
+      ${catkin_INCLUDE_DIRS}
       ${OpenCV_INCLUDE_DIRS}
     )
 
@@ -78,7 +88,7 @@ if(OpenCV_FOUND AND OPENCV)
 
     target_link_libraries( OpticalFlow
       ${OpenCV_LIBS}
-      ${klt_feature_tracker_LIBS}
+      ${catkin_LIBRARIES}
     )
 else()
     message(STATUS "Building ${PROJECT_NAME} without OpenCV")
@@ -98,24 +108,3 @@ else()
 endif()
 
 target_include_directories(OpticalFlow PUBLIC include)
-
-# Generate the Config file from the .in file, doing @VAR@ substitution only
-configure_file(OpticalFlowConfig.cmake.in FindOpticalFlow.cmake @ONLY)
-
-# INSTALL STEPS
-INSTALL(
-  TARGETS OpticalFlow
-  RUNTIME DESTINATION lib
-  LIBRARY DESTINATION lib)
-
-INSTALL(
-  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/external/klt_feature_tracker/include/
-  DESTINATION include)
-
-INSTALL(
-  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-  DESTINATION include)
-
-INSTALL(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/FindOpticalFlow.cmake
-  DESTINATION ${CMAKE_INSTALL_PREFIX})
