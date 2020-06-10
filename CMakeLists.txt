@@ -39,7 +39,7 @@ endif()
 if( POLICY CMP0042 )
   cmake_policy(SET CMP0042 NEW)
 endif()
-project( OpticalFlow )
+project( optical_flow )
 
 find_package(catkin REQUIRED COMPONENTS
   klt_feature_tracker)
@@ -47,6 +47,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS klt_feature_tracker
+  LIBRARIES ${PROJECT_NAME}
 )
 
 include_directories(
@@ -72,34 +73,34 @@ OPTION(OPENCV "ON for OpenCV" ON) # -DOPENCV=OFF
 if(OpenCV_FOUND AND OPENCV)
     message(STATUS "Building ${PROJECT_NAME} with OpenCV")
 
-    set(OpticalFlow_INCLUDE_DIRS
+    set(${PROJECT_NAME}_INCLUDE_DIRS
       ${catkin_INCLUDE_DIRS}
       ${OpenCV_INCLUDE_DIRS}
     )
 
-    include_directories(OpticalFlow_INCLUDE_DIRS)
+    include_directories(${PROJECT_NAME}_INCLUDE_DIRS)
 
-    add_library( OpticalFlow SHARED
+    add_library( ${PROJECT_NAME} SHARED
       src/optical_flow.cpp
       src/px4flow.cpp
      	src/flow_px4.cpp
     	src/flow_opencv.cpp
     )
 
-    target_link_libraries( OpticalFlow
+    target_link_libraries( ${PROJECT_NAME}
       ${OpenCV_LIBS}
       ${catkin_LIBRARIES}
     )
 else()
     message(STATUS "Building ${PROJECT_NAME} without OpenCV")
 
-    set(OpticalFlow_INCLUDE_DIRS
+    set(${PROJECT_NAME}_INCLUDE_DIRS
       ${CMAKE_CURRENT_SOURCE_DIR}/include
     )
 
-    include_directories(OpticalFlow_INCLUDE_DIRS)
+    include_directories(${PROJECT_NAME}_INCLUDE_DIRS)
 
-    add_library( OpticalFlow SHARED
+    add_library( ${PROJECT_NAME} SHARED
       src/optical_flow.cpp
       src/px4flow.cpp
      	src/flow_px4.cpp
@@ -107,4 +108,4 @@ else()
 
 endif()
 
-target_include_directories(OpticalFlow PUBLIC include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
