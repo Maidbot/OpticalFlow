@@ -32,7 +32,7 @@
  -
 -->
 <package format="2">
-  <name>OpticalFlow</name>
+  <name>optical_flow</name>
   <version>0.0.0</version>
   <description>Optical flow package</description>
 
