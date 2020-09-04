@@ -38,7 +38,7 @@
 *      Author: Christoph
 */
 
-#include "OpticalFlow/optical_flow.hpp"
+#include "optical_flow/optical_flow.hpp"
 
 void OpticalFlow::initLimitRate()
 {

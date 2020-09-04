@@ -41,7 +41,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <iostream>
-#include "OpticalFlow/px4flow.hpp"
+#include "optical_flow/px4flow.hpp"
 
 PX4Flow::PX4Flow(uint32_t image_width_, uint32_t search_size_,
 		 uint32_t flow_feature_threshold_, uint32_t flow_value_threshold_,

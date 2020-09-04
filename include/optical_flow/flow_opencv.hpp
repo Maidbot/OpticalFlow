@@ -32,7 +32,7 @@
  ****************************************************************************/
 
 /*
-*  flow_px4.hpp
+*  flow_opencv.hpp
 *
 *  Created on: Dec 13, 2016
 *      Author: Christoph
@@ -40,29 +40,45 @@
 
 #pragma once
 
-#include "OpticalFlow/optical_flow.hpp"
-#include "OpticalFlow/px4flow.hpp"
-#include <memory.h>
-#include "OpticalFlow/constants.hpp"
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include <cmath>
 
-class OpticalFlowPX4 : public OpticalFlow
+#include "optical_flow/optical_flow.hpp"
+#include "klt_feature_tracker/track_features.h"
+
+#define DEFAULT_NUMBER_OF_FEATURES 20
+#define DEFAULT_CONFIDENCE_MULTIPLIER 1.645f //90% confidence interval
+
+class OpticalFlowOpenCV : public OpticalFlow
 {
 
 private:
-
-	PX4Flow *px4_flow;
-	bool initialized;
-	uint8_t *img_old;
+	//params which can be set
+	int num_features;
+	float confidence_multiplier;
+	cv::Mat_<float> camera_matrix;
+	cv::Mat_<float> camera_distortion;
+	//general
+	std::vector<int> updateVector;
+	std::vector<cv::Point2f> features_current, features_previous, features_tmp, useless;
+	bool set_camera_matrix;
+	bool set_camera_distortion;
 
 public:
 
-	OpticalFlowPX4(float f_length_x, float f_length_y, int ouput_rate = DEFAULT_OUTPUT_RATE,
-		int img_width = DEFAULT_IMAGE_WIDTH, int img_height = DEFAULT_IMAGE_HEIGHT, 
-		int search_size = DEFAULT_SEARCH_SIZE,
-		int flow_feature_threshold = DEFAULT_FLOW_FEATURE_THRESHOLD,
-		int flow_value_threshold = DEFAULT_FLOW_VALUE_THRESHOLD,
-		int tile_size = TILE_SIZE, int num_blocks=NUM_BLOCKS);
-	~OpticalFlowPX4();
+	inline void setNumFeatures(int n_feat) { num_features = n_feat; };
+	inline void setConfMultiplier(float conf_multi) { confidence_multiplier = conf_multi; };
+	void setCameraMatrix(float focal_len_x, float focal_len_y, float principal_point_x, float principal_point_y);
+	void setCameraDistortion(float k1, float k2, float k3, float p1 = 0.0f, float p2 = 0.0f);
+
+	inline int getNumFeatures() { return num_features; };
+	inline int getConfMultiplier() { return confidence_multiplier; };
+
+	OpticalFlowOpenCV(float f_length_x, float f_length_y, int output_rate = DEFAULT_OUTPUT_RATE,
+			  int img_width = DEFAULT_IMAGE_WIDTH, int img_height = DEFAULT_IMAGE_HEIGHT, int num_feat = DEFAULT_NUMBER_OF_FEATURES,
+			  float conf_multi = DEFAULT_CONFIDENCE_MULTIPLIER);
+	~OpticalFlowOpenCV();
 
 	int calcFlow(uint8_t *img_current, const uint32_t &img_time_us, int &dt_us,
 		     float &flow_x, float &flow_y);
