@@ -45,7 +45,7 @@
 #include <cmath>
 
 #include "OpticalFlow/optical_flow.hpp"
-#include "klt_feature_tracker/trackFeatures.h"
+#include "klt_feature_tracker/track_features.h"
 
 #define DEFAULT_NUMBER_OF_FEATURES 20
 #define DEFAULT_CONFIDENCE_MULTIPLIER 1.645f //90% confidence interval
