@@ -38,7 +38,8 @@
 *      Author: Christoph
 */
 
-#pragma once
+#ifndef OPTICAL_FLOW_OPTICAL_FLOW_HPP
+#define OPTICAL_FLOW_OPTICAL_FLOW_HPP
 
 #include <stdint.h>
 #include <iostream>
@@ -83,3 +84,5 @@ public:
 	virtual int calcFlow(uint8_t *img_current, const uint32_t &img_time_us, int &dt_us, float &flow_x, float &flow_y) = 0;
 
 };
+
+#endif // OPTICAL_FLOW_OPTICAL_FLOW_HPP

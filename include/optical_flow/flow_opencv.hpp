@@ -38,14 +38,16 @@
 *      Author: Christoph
 */
 
-#pragma once
-
-#include <iostream>
-#include <opencv2/opencv.hpp>
-#include <cmath>
+#ifndef OPTICAL_FLOW_FLOW_OPENCV_HPP
+#define OPTICAL_FLOW_FLOW_OPENCV_HPP
 
 #include "optical_flow/optical_flow.hpp"
-#include "klt_feature_tracker/track_features.h"
+
+#include <opencv2/opencv.hpp>
+
+#include <iostream>
+#include <cmath>
+
 
 #define DEFAULT_NUMBER_OF_FEATURES 20
 #define DEFAULT_CONFIDENCE_MULTIPLIER 1.645f //90% confidence interval
@@ -84,3 +86,5 @@ public:
 		     float &flow_x, float &flow_y);
 
 };
+
+#endif  // OPTICAL_FLOW_FLOW_OPENCV_HPP

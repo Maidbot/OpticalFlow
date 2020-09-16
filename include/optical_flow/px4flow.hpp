@@ -38,7 +38,8 @@
 *      Author: Christoph
 */
 
-#pragma once
+#ifndef OPTICAL_FLOW_PX4FLOW_HPP
+#define OPTICAL_FLOW_PX4FLOW_HPP
 
 #include <stdint.h>
 
@@ -71,3 +72,5 @@ public:
 			     float z_rate, float *pixel_flow_x, float *pixel_flow_y);
 
 };
+
+#endif // OPTICAL_FLOW_PX4FLOW_HPP

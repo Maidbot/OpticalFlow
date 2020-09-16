@@ -38,12 +38,15 @@
 *      Author: Christoph
 */
 
-#pragma once
+#ifndef OPTICAL_FLOW_FLOW_PX4_HPP
+#define OPTICAL_FLOW_FLOW_PX4_HPP
 
+#include "optical_flow/constants.hpp"
 #include "optical_flow/optical_flow.hpp"
 #include "optical_flow/px4flow.hpp"
+
 #include <memory.h>
-#include "optical_flow/constants.hpp"
+
 
 class OpticalFlowPX4 : public OpticalFlow
 {
@@ -68,3 +71,5 @@ public:
 		     float &flow_x, float &flow_y);
 
 };
+
+#endif //  OPTICAL_FLOW_FLOW_PX4_HPP

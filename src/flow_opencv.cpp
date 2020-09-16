@@ -39,6 +39,7 @@
 */
 
 #include "optical_flow/flow_opencv.hpp"
+#include "klt_feature_tracker/klt_feature_tracker.h"
 
 /****************************************************************************
  * OpenCV optical flow calculation

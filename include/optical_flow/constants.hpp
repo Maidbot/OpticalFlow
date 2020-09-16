@@ -1,5 +1,5 @@
-#ifndef OPTICAL_FLOW_CONSTANTS_H
-#define OPTICAL_FLOW_CONSTANTS_H
+#ifndef OPTICAL_FLOW_CONSTANTS_HPP
+#define OPTICAL_FLOW_CONSTANTS_HPP
 
 #define DEFAULT_SEARCH_SIZE 6
 #define DEFAULT_FLOW_FEATURE_THRESHOLD 30
@@ -12,4 +12,4 @@
 #define TILE_SIZE	8	// x & y tile size
 #define NUM_BLOCKS 5 // x & y number of tiles to check
 
-#endif
+#endif // OPTICAL_FLOW_CONSTANTS_HPP
